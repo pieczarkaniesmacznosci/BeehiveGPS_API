@@ -28,7 +28,7 @@ namespace BeehiveGPS_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LocationContext>(opt =>
-                opt.UseInMemoryDatabase("Location"));
+                opt.UseSqlServer(Configuration.GetConnectionString("LocationContext")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
