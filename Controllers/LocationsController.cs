@@ -24,14 +24,14 @@ namespace BeehiveGPS_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
         {
-            return await _context.Locations.ToListAsync();
+            return _context.Locations.Include(l => l.Device).Include(l => l.Position).ToList();
         }
 
         // GET: api/Locations/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Location>> GetLocation(int id)
         {
-            var location = await _context.Locations.FindAsync(id);
+            var location = _context.Locations.Include(l => l.Device).Include(l=>l.Position).FirstOrDefault();
 
             if (location == null)
             {
